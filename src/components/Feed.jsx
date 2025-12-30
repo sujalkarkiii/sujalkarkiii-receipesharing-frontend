@@ -10,6 +10,7 @@ const Feed = () => {
       const posts_data = await hanldhome()
       setpost(posts_data.homedata)
     }
+
     loaddata()
   }, [])
 

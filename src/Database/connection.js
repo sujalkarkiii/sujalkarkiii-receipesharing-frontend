@@ -1,5 +1,5 @@
 import axios from "axios"
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL
 
 export const hadlesignup = async (signupdata) => {
   try {
@@ -16,15 +16,16 @@ export const hadlesignup = async (signupdata) => {
 export const hadlelogin = async (loginData) => {
   try {
     const response = await axios.post(
-     `${API}/login`,
+      `${API}/login`,
       loginData,
       { withCredentials: true }
     );
     console.log("Login successful!");
-
-
     return response.data;
   } catch (error) {
+    if (error.response?.status === 429) {
+      alert("You have tried to login too many times. Please wait 15 minutes and try again.");
+    }
     console.error("Login error:", error.response ? error.response.data : error.message);
   }
 };
@@ -172,7 +173,7 @@ export const handlenewfriend = async () => {
 
 export const logout = async () => {
   try {
-    const response = await axios.post(`${API}/logout`,{}, {
+    const response = await axios.post(`${API}/logout`, {}, {
       withCredentials: true
     });
     return response.data;
