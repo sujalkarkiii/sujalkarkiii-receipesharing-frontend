@@ -1,2 +1,2 @@
-site:- https://sujall.vercel.app/
+site:- https://receipesharing.vercel.app
 Construction going on
