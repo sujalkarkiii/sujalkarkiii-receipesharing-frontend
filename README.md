@@ -1,5 +1,2 @@
-https://receipesharing.vercel.app/
-
-###Things to add:-
-1.Live chatting 
-2.Booking system
+site:- https://sujall.vercel.app/
+Construction going on
