@@ -8,7 +8,7 @@ const Navbar = () => {
 <nav className="bg-green-500 text-blue-50 px-4 sm:px-6 md:px-10 lg:px-16 py-3 flex items-center justify-between sticky top-0 z-50 border-b border-white/20">
       {/* Home */}
       <div className="text-xl hover:text-black">
-        <Link to="/">Home</Link>
+        <Link to="/home">Home</Link>
       </div>
 
       {/* Hamburger button: only on small screens */}
