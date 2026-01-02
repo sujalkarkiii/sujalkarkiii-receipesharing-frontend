@@ -8,10 +8,10 @@ import Chatting_page from "./Pages/Chatting_page"
 import Mine_page from "./Pages/Mine_page"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Goinise_post from "./Pages/Goinise_post"
 const App = () => {
   return (
     <div>
-   <ToastContainer />
       <Routes>
               <Route path='/signup' element={<Signup_page/>}/>
               <Route path='/' element={<Login_page/>}/>
@@ -22,10 +22,11 @@ const App = () => {
               
               <Route path='/post' element={<Postpage/>}/>
               <Route path='/me' element={<Mine_page/>}/>
+              <Route path='/receipe' element={<Goinise_post/>}/>
 
-              {/* here pages goes on incresing */}
               </Route>
       </Routes>
+   <ToastContainer />
     </div>
   )
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
             Messege
           </Link>
         <Link to="/me" className="text-white hover:text-black">
-            Me_page
+            Me
           </Link>  
           <Link to="/" className="text-white hover:text-black">
             Logout
