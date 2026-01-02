@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import { hadlesignup } from "../Database/connection.js"
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup_page = () => {
     const [username, setusername] = useState("")
@@ -9,89 +11,108 @@ const Signup_page = () => {
     const [password, setpassword] = useState("")
     const navigate = useNavigate()
 
-
-
-
+// sigup handle function garxa
     const handleClick = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        // Check garxa if all fields are filled
+        if (!username || !email || !phonenumber || !password) {
+            toast.error("Please fill all fields!", { position: "top-center" });
+            return;
+        }
+
         const responses = { username, email, phonenumber, password }
 
         try {
-           const result= await  hadlesignup(responses);
-            console.log(result.messege);
-            if (result.success)
-            {
-               navigate('/')
+            const result = await hadlesignup(responses);
+
+            if (result.success) {
+                toast.success("Registration Successful!", { position: "top-center" });
+                setTimeout(() => navigate('/'), 2000); // redirect after 2 sec
+            } else {
+                toast.error(result.message || "Registration failed!", { position: "top-center" });
             }
-            
+
         } catch (error) {
-            console.log("error detected", error);
+            toast.error("Already resistred!", { position: "top-center" });
+            console.error("Error detected:", error);
         }
     }
+
+
+
+
     return (
-        <>
-            <section>
-                <form>
+        <section className="flex items-center justify-center min-h-screen bg-green-50 p-4">
+            <form className="bg-green-50 p-6 w-full max-w-sm rounded-xl shadow-md">
+                {/* Username */}
+                <div className="flex flex-col mb-4">
+                    <label className="mb-1 font-semibold text-green-800">Username:</label>
+                    <input
+                        type="text"
+                        placeholder="Enter Username"
+                        className="p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        value={username}
+                        onChange={(e) => setusername(e.target.value)}
+                    />
+                </div>
 
-                    <div>
-                        {/* username div */}
-                        <div className="usernamediv">
-                            <label htmlFor="Name">Username:</label>
-                            <input type="text"
-                                name="Name"
-                                placeholder="Enter Username"
-                                value={username}
-                                onChange={(e) => setusername(e.target.value)}
-                            />
-                        </div>
+                {/* Email */}
+                <div className="flex flex-col mb-4">
+                    <label className="mb-1 font-semibold text-green-800">Email:</label>
+                    <input
+                        type="email"
+                        placeholder="Enter Email"
+                        className="p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        value={email}
+                        onChange={(e) => setemail(e.target.value)}
+                    />
+                </div>
 
-                        {/*email div  */}
-                        <div className="emaildiv">
-                            <label htmlFor="Name">Email:</label>
-                            <input type="email"
-                                name="Name"
-                                placeholder="Enter Email"
-                                value={email}
-                                onChange={(e) => setemail(e.target.value)}
+                {/* Phone Number */}
+                <div className="flex flex-col mb-4">
+                    <label className="mb-1 font-semibold text-green-800">Phone Number:</label>
+                    <input
+                        type="tel"
+                        placeholder="Enter Phone Number"
+                        className="p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        value={phonenumber}
+                        onChange={(e) => setphonenumber(e.target.value)}
+                    />
+                </div>
 
-                            />
-                        </div>
+                {/* Password */}
+                <div className="flex flex-col mb-4">
+                    <label className="mb-1 font-semibold text-green-800">Password:</label>
+                    <input
+                        type="password"
+                        placeholder="Enter Password"
+                        className="p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        value={password}
+                        onChange={(e) => setpassword(e.target.value)}
+                    />
+                </div>
 
-                        {/* phonenumer div */}
-                        <div className="phonenumberdiv">
-                            <label htmlFor="phonenumer">Phone Number:</label>
-                            <input type="tel"
-                                name="phonenumer"
-                                    id="phonenumber"
-                                placeholder="Enter Phone Number"
-                                value={phonenumber}
-                                onChange={(e) => setphonenumber(e.target.value)}
+                <button
+                    type="button"
+                    onClick={handleClick}
+                    className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition mb-2"
+                >
+                    Sign Up
+                </button>
 
-                            />
-                        </div>
+                <button
+                    type="button"
+                    onClick={(e) => navigate('/')}
+                    className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition"
+                >
+                    Login
+                </button>
+            </form>
 
-                        {/* passwword div */}
-
-                        <div className="password">
-                            <label htmlFor="password">Password:</label>
-                            <input type="text"
-                                id="password"
-                                name="password"
-                                placeholder="Enter Password"
-                                value={password}
-                                onChange={(e) => setpassword(e.target.value)}
-
-                            />
-                        </div>
-
-                    </div>
-                    <button type="button" onClick={handleClick}>Sign Up</button>
-                </form>
-
-            </section>
-
-
-        </>
+            {/* Toast Container */}
+            <ToastContainer />
+        </section>
     )
 }
 

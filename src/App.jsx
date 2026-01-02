@@ -6,10 +6,12 @@ import Protectedpage from "./Pages/Protectedpage"
 import Postpage from "./Pages/Postpage"
 import Chatting_page from "./Pages/Chatting_page"
 import Mine_page from "./Pages/Mine_page"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <div>
-
+   <ToastContainer />
       <Routes>
               <Route path='/signup' element={<Signup_page/>}/>
               <Route path='/' element={<Login_page/>}/>

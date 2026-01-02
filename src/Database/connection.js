@@ -1,4 +1,6 @@
 import axios from "axios"
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5001"
 
@@ -8,6 +10,7 @@ export const hadlesignup = async (signupdata) => {
     return response.data;
   } catch (error) {
     console.log("Signup error:", error);
+
   }
 }
 
@@ -16,16 +19,14 @@ export const hadlesignup = async (signupdata) => {
 
 export const hadlelogin = async (loginData) => {
   try {
-    const response = await axios.post(
-      `${API}/login`,
-      loginData,
-      { withCredentials: true }
-    );
-    console.log("Login successful!");
+    const response = await axios.post(`${API}/login`, loginData, { withCredentials: true });
+
     return response.data;
   } catch (error) {
     if (error.response?.status === 429) {
-      alert("You have tried to login too many times. Please wait 15 minutes and try again.");
+      toast.error("Too many login attempts. Wait 15 minutes.", { position: "top-center" });
+    } else {
+      toast.error(error.response?.data?.message || "Login failed", { position: "top-center" });
     }
     console.error("Login error:", error.response ? error.response.data : error.message);
   }
