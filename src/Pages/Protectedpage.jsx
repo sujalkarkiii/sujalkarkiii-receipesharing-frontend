@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { handleprotection } from "../Database/connection";
+import Navbar from "../components/Navbar";
 const Protectedpage = () => {
 
   const [isAuth, setAuth] = useState(null)
@@ -23,8 +24,11 @@ const Protectedpage = () => {
   if(isAuth==null) return <p>loading...</p>
   if(!isAuth) return <Navigate to="/" replace />
   return (
-
+    <>
+    <Navbar/>
+    
     <Outlet />
+    </>
 
   )
 }

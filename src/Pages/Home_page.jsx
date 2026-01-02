@@ -1,114 +1,24 @@
-import { Link, useLocation } from "react-router-dom"
-import User_page from "../components/List_ofuser"
-import Feed from "../components/Feed"
-import { logout } from "../Database/connection"
-import { useNavigate } from "react-router-dom";
-import { useEffect} from "react"
-import {Toaster, toast} from "react-hot-toast"
+import User_page from "../components/List_ofuser";
+import Feed from "../components/Feed";
 
 const Home_page = () => {
-const location=useLocation()
-
-const navigate = useNavigate();
-  const handleloginout= async()=>{
-    await logout()
-    navigate("/")
-  }
-
-  
-    useEffect(() => {
-     if(location.state?.successMessage)
-     {
-      toast.success(location.state.successMessage,{ duration:2500})
-       window.history.replaceState({}, document.title);
-     }
-    }, [])
   return (
-<>
-  <User_page />
-  <Feed />
+    <div className="flex w-full min-h-screen ">
+      {/* User list on left side of the big and medium screen and hidden on small screens */}
 
-  {/* FRIENDS BUTTON (Top Left) */}
-  <Link to="/friends">
-    <button
-      type="button"
-      className="
-        fixed top-4 left-4
-        bg-green-300 text-green-900
-        px-4 py-2 rounded shadow
-        hover:bg-green-400
-        transition
-      "
-    >
-      Friends
-    </button>
-  </Link>
 
-  {/* POST BUTTON (Top Right - ALWAYS) */}
-  <Link to="/post">
-    <button
-      type="button"
-      className="
-        fixed top-4 right-4
-        bg-green-500 text-white
-        px-4 py-2 rounded shadow
-        hover:bg-green-600
-        transition
-      "
-    >
-      Post
-    </button>
-  </Link>
+      <div className="hidden md:block md:w-1/4">
+        <User_page />
+      </div>
 
-  {/* MESSAGE BUTTON (Below Post) */}
-  <Link to="/messege">
-    <button
-      type="button"
-      className="
-        fixed top-16 right-4
-        bg-green-500 text-white
-        px-4 py-2 rounded shadow
-        hover:bg-green-600
-        transition
-      "
-    >
-      Message
-    </button>
-  </Link>
+      {/* Feed in center of the screeen in md ,sm and bg screen  */}
+      <div className="w-full md:w-3/4 flex justify-center">
+        <div className="w-full max-w-3xl lg:max-w-5xl mx-auto">
+          <Feed />
+        </div>
+      </div>
+    </div>
+  );
+};
 
-  {/* ME BUTTON (Below Message) */}
-  <Link to="/me">
-    <button
-      type="button"
-      className="
-        fixed top-28 right-4
-        bg-green-500 text-white
-        px-4 py-2 rounded shadow
-        hover:bg-green-600
-        transition
-      "
-    >
-      Me
-    </button>
-  </Link>
-
-    <button
-      type="button"
-      className="
-        fixed top-42 right-4
-        bg-green-500 text-white
-        px-4 py-2 rounded shadow
-        hover:bg-green-600
-        transition
-      "
-      onClick={handleloginout}
-    >
-      logout
-    </button>
-<Toaster />
-</>
-
-  )
-}
-
-export default Home_page
+export default Home_page;

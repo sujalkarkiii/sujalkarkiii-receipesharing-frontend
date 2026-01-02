@@ -54,8 +54,7 @@ const User_page = () => {
 
   return (
     <>
-      {/* USERS LIST ON TOP-LEFT */}
-      <div className="fixed top-4 left-4 bg-white shadow-lg p-4 rounded-lg w-48">
+      <div className="fixed top-20 left-4 bg-white shadow-lg p-4 rounded-lg w-48" >
         <h2 className="font-bold mb-2">Users</h2>
         {users.map((user) => (
           <div key={user._id} className="border-b py-1">
